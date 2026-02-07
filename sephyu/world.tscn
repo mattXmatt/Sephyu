@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dnv0ygfweibgv"]
+
+[ext_resource type="PackedScene" uid="uid://ca623bfr0risb" path="res://static_body_2d.tscn" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://b23ii7lrf22rq" path="res://static_body_2d.gd" id="2_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://bb4yvxm3cmbhi" path="res://character/character_body_2d.tscn" id="2_tlwt5"]
+
+[node name="Node2D" type="Node2D" unique_id=2083576705]
+
+[node name="StaticBody2D" parent="." unique_id=1495442668 instance=ExtResource("1_fj7yv")]
+position = Vector2(1, 1)
+script = ExtResource("2_aqk2v")
+
+[node name="CharacterBody2D" parent="." unique_id=2113798725 instance=ExtResource("2_tlwt5")]
+position = Vector2(-279, 0)
