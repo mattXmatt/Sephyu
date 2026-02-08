@@ -2,8 +2,40 @@
 
 [ext_resource type="Script" uid="uid://bopljm6rnc8jd" path="res://character/character_body_2d.gd" id="1_ctgys"]
 [ext_resource type="Texture2D" uid="uid://bs0gy43bxp5y1" path="res://character/icon.svg" id="2_q5p83"]
+[ext_resource type="Texture2D" uid="uid://btsgyoqm3dul4" path="res://assets/character/TP point/ball.png" id="3_q5p83"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_186t8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_eavir"]
+atlas = ExtResource("3_q5p83")
+region = Rect2(0, 192, 105, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vylgs"]
+atlas = ExtResource("3_q5p83")
+region = Rect2(0, 96, 105, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo0mp"]
+atlas = ExtResource("3_q5p83")
+region = Rect2(0, 0, 105, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7wvu5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eavir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vylgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo0mp")
+}],
+"loop": true,
+"name": &"point",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ctgys"]
+radius = 0.9999993
+height = 7.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f50pn"]
 animations = [{
@@ -21,14 +53,29 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2113798725]
+[node name="Player" type="CharacterBody2D" unique_id=2113798725]
+scale = Vector2(0.2, 0.2)
 collision_mask = 3
 script = ExtResource("1_ctgys")
 
+[node name="rewind_point" type="RigidBody2D" parent="." unique_id=849300968]
+visible = false
+y_sort_enabled = true
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="rewind_point" unique_id=828873503]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_7wvu5")
+animation = &"point"
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=914082921]
-scale = Vector2(10, 10)
-shape = SubResource("CircleShape2D_186t8")
+position = Vector2(-2.861023e-06, 54.999985)
+rotation = 1.573551
+scale = Vector2(9.999998, 9.999998)
+shape = SubResource("CapsuleShape2D_ctgys")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1169623255]
 sprite_frames = SubResource("SpriteFrames_f50pn")
 animation = &"new_animation"
+
+[node name="Timer" type="Timer" parent="." unique_id=1953616768]

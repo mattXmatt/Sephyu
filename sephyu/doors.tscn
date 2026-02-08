@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://dy8j6jaycyf8x"]
+
+[ext_resource type="Texture2D" uid="uid://bgi38endt8aa4" path="res://assets/map/doors/doorClosed_E.png" id="1_4ybfh"]
+[ext_resource type="Texture2D" uid="uid://7k4e1t51ddlj" path="res://assets/map/doors/doorOpen_E.png" id="2_cb6k2"]
+
+[sub_resource type="Animation" id="Animation_nmq8f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionPolygon2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionPolygon2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_4ybfh")]
+}
+
+[sub_resource type="Animation" id="Animation_4ybfh"]
+resource_name = "close"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionPolygon2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionPolygon2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0175, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_cb6k2"), ExtResource("1_4ybfh")]
+}
+
+[sub_resource type="Animation" id="Animation_hb01n"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionPolygon2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionPolygon2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0175, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_4ybfh"), ExtResource("2_cb6k2")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5kfko"]
+_data = {
+&"RESET": SubResource("Animation_nmq8f"),
+&"close": SubResource("Animation_4ybfh"),
+&"open": SubResource("Animation_hb01n")
+}
+
+[node name="Doors" type="StaticBody2D" unique_id=1606907025]
+collision_layer = 2
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=669556830]
+texture = ExtResource("1_4ybfh")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=313487980]
+position = Vector2(-14, 152)
+rotation = -1.3089969
+polygon = PackedVector2Array(0.9659271, -0.25881958, -35.41606, -43.30938, -13.648056, -47.071545, 18.093765, -5.8834915)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="." unique_id=1751927575]
+position = Vector2(-72, 195)
+polygon = PackedVector2Array(1, -1, -22, 10, -56, -5, -55, -39, -25, -27, 0, -38)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="." unique_id=1061870495]
+position = Vector2(0, 157)
+polygon = PackedVector2Array(0, 0, 32, -12, 32, -51, 0, -35, -12, -7)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=211557647]
+libraries/ = SubResource("AnimationLibrary_5kfko")
