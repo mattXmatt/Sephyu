@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Sephyu"
-run/main_scene="uid://dnv0ygfweibgv"
+run/main_scene="uid://bx6ujapofntkm"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://character/icon.svg"
 
