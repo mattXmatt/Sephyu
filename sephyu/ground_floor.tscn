@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dy8j6jaycyf8x" path="res://doors.tscn" id="5_pcs48"]
 [ext_resource type="Texture2D" uid="uid://dmmc2ch506xkk" path="res://assets/map/objects/button.png" id="7_nevr2"]
 [ext_resource type="Texture2D" uid="uid://bdekm7ro4wdxk" path="res://assets/map/objects/key_32x32_24f.png" id="8_xgxat"]
-[ext_resource type="PackedScene" uid="uid://dlds4u0yan17b" path="res://guard.tscn" id="9_ftm45"]
+[ext_resource type="PackedScene" uid="uid://bx6ujapofntkm" path="res://guard.tscn" id="9_ftm45"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gc6m6"]
 texture = ExtResource("1_mf1e4")
@@ -448,6 +448,7 @@ tile_set = SubResource("TileSet_un4vm")
 
 [node name="Player" parent="." unique_id=2113798725 instance=ExtResource("2_gc6m6")]
 position = Vector2(282, 78)
+scale = Vector2(1, 1)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=59872114]
 zoom = Vector2(3, 3)

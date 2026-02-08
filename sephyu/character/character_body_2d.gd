@@ -15,6 +15,7 @@ func _ready() -> void:
 	$rewind_point.top_level = true
 	$rewind_point.visible = false
 	$Timer.start(TP_SAVE_TIME)
+	$AnimatedSprite2D.animation = "default"
 	
 func _on_timer_timeout() -> void:
 	history_tick += 1;
@@ -44,6 +45,16 @@ func _physics_process(delta: float) -> void:
 		
 	var y_directions := Input.get_axis("up", "down")
 	var x_directions := Input.get_axis("ui_left", "ui_right")
+	if x_directions < 0:
+		$AnimatedSprite2D.play("new_animation_1")
+	if x_directions > 0:
+		$AnimatedSprite2D.animation = "new_animation_1"
+		$AnimatedSprite2D.flip_h
+		$AnimatedSprite2D.play("new_animation_1")
+	if y_directions < 0:
+		$AnimatedSprite2D.play("new_animation_2")
+	if y_directions > 0:
+		$AnimatedSprite2D.play("default")
 	if y_directions:
 		velocity.y = y_directions * SPEED
 	else:
