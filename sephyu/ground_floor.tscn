@@ -431,7 +431,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_u6ogl")
 }],
 "loop": true,
-"name": &"new_animation",
+"name": &"idle",
 "speed": 10.0
 }]
 
@@ -531,9 +531,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="key" unique_id=1821996828]
 sprite_frames = SubResource("SpriteFrames_x36fr")
-animation = &"new_animation"
-frame = 8
-frame_progress = 0.3702745
+animation = &"idle"
 
 [node name="Area2D" type="Area2D" parent="key" unique_id=1126700202]
 

@@ -12,6 +12,7 @@ func _ready() -> void:
 	$CanvasLayer/Timer.add_theme_color_override("font_color", Color.BLACK)
 	$CanvasLayer/rewind_nb.add_theme_color_override("font_color", Color.BLACK)
 	$"Spawn-Door/AnimationPlayer".play("open")
+	$key/AnimatedSprite2D.play("idle")
 	pass
 
 func start_timer() -> void:
@@ -43,6 +44,7 @@ func update_key() -> void:
 	if ($key/Area2D.overlaps_body($Player)):
 		key_taken = true
 		$key.visible = false
+		$key/AnimatedSprite2D.stop()
 		
 func update_locked_stairs():
 	if (!key_taken):
@@ -57,6 +59,7 @@ func check_game_end() -> bool:
 		$CanvasLayer/Timer.add_theme_font_size_override("font_size", 100)
 		$Player.set_physics_process(false)
 		$Player.set_process(false)
+		$"GlobalTimer".stop()
 		return true
 	if (win):
 		$CanvasLayer/Timer.text = "WIN"
@@ -64,6 +67,7 @@ func check_game_end() -> bool:
 		$CanvasLayer/Timer.add_theme_font_size_override("font_size", 100)
 		$Player.set_physics_process(false)
 		$Player.set_process(false)
+		$"GlobalTimer".stop()
 		return true
 	return false
 		
