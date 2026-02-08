@@ -1,11 +1,8 @@
-[gd_scene format=3 uid="uid://bx6ujapofntkm"]
+[gd_scene format=3 uid="uid://dlds4u0yan17b"]
 
 [ext_resource type="Script" uid="uid://yilnk0jlf6dn" path="res://guard.gd" id="1_opr0s"]
 [ext_resource type="Texture2D" uid="uid://100vncu5l141" path="res://character/Officer_sheet_boxed_0.png" id="2_30cdx"]
 [ext_resource type="Texture2D" uid="uid://bvf0aas0lbuf3" path="res://character/ImrIHK.png" id="3_aoykg"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_opr0s"]
-radius = 20.0
 
 [sub_resource type="Gradient" id="Gradient_30cdx"]
 
@@ -32,11 +29,6 @@ region = Rect2(96, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cruxe"]
 animations = [{
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aoykg")
@@ -87,7 +79,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aoykg"]
+size = Vector2(7, 2)
+
 [node name="Guard" type="CharacterBody2D" unique_id=498878654]
+collision_mask = 3
 script = ExtResource("1_opr0s")
 patrol_points_path = NodePath("Node2D")
 
@@ -105,11 +101,6 @@ position = Vector2(69, -41)
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=128272710]
 
-[node name="VisionArea" type="Area2D" parent="." unique_id=1184041361]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=1891074075]
-shape = SubResource("CircleShape2D_opr0s")
-
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1520634528]
 position = Vector2(2.3841858e-07, -0.5000007)
 scale = Vector2(0.625, 0.60937494)
@@ -117,9 +108,14 @@ texture = SubResource("GradientTexture2D_aoykg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2014894895]
 sprite_frames = SubResource("SpriteFrames_cruxe")
+animation = &"idle"
 
 [node name="LightRay" type="AnimatedSprite2D" parent="." unique_id=1974280816]
 position = Vector2(4, 0)
 scale = Vector2(0.02, 0.02)
 sprite_frames = SubResource("SpriteFrames_ioqu5")
 animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=273598532]
+position = Vector2(0.5, 14)
+shape = SubResource("RectangleShape2D_aoykg")

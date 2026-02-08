@@ -6,10 +6,11 @@ var electicity_shutdown: bool = false
 var key_taken: bool = false
 var win: bool = false
 var game_over: bool = false
-var remaining_rewind = 5
 
 func _ready() -> void:
 	start_timer()
+	$CanvasLayer/Timer.add_theme_color_override("font_color", Color.BLACK)
+	$CanvasLayer/rewind_nb.add_theme_color_override("font_color", Color.BLACK)
 	$"Spawn-Door/AnimationPlayer".play("open")
 	pass
 
@@ -49,25 +50,49 @@ func update_locked_stairs():
 	if ($"Stairs-Door/Area2D".overlaps_body($Player) && Input.is_action_just_pressed("interact")):
 		$"Stairs-Door/AnimationPlayer".play("open")
 	
-func check_game_end():
+func check_game_end() -> bool:
 	if (game_over):
-		get_viewport().gui_disable_input = true
+		$CanvasLayer/Timer.text = "GAME OVER"
+		$CanvasLayer/Timer.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+		$CanvasLayer/Timer.add_theme_font_size_override("font_size", 100)
+		$Player.set_physics_process(false)
+		$Player.set_process(false)
+		return true
 	if (win):
-		get_viewport().gui_disable_input = true
+		$CanvasLayer/Timer.text = "WIN"
+		$CanvasLayer/Timer.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+		$CanvasLayer/Timer.add_theme_font_size_override("font_size", 100)
+		$Player.set_physics_process(false)
+		$Player.set_process(false)
+		return true
+	return false
+		
+func check_captured_by_guard():
+	if (game_over):
+		return
+	if ($Guard/Area2D.overlaps_body($Player)):
+		game_over = true
+		
 func _on_timer_timeout() -> void:
 	time_passed += 1
 	var time_str: String = get_converted_time(time_passed)
-	$CanvasLayer/Label.text = time_str
+	$CanvasLayer/Timer.text = "Remaining time: " + str(time_str)
 	print("Elapsed time: ", time_str)
 	if (time_passed >= 300):
 		$"GlobalTimer".stop()
 		game_over = true
 
+func display_rewind_remaing():
+	$CanvasLayer/rewind_nb.text = "Remaining rewind: " + str($Player.remaining_rewind)
+
 func _process(delta: float) -> void:
-	check_game_end()
+	display_rewind_remaing()
 	update_shutdown()
 	update_key()
 	update_locked_stairs()
+	check_captured_by_guard()
 	if ($Stairs/Area2D.overlaps_body($Player)):
 		win = true
+	if(check_game_end()):
+		return
 	pass

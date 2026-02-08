@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dy8j6jaycyf8x" path="res://doors.tscn" id="5_pcs48"]
 [ext_resource type="Texture2D" uid="uid://dmmc2ch506xkk" path="res://assets/map/objects/button.png" id="7_nevr2"]
 [ext_resource type="Texture2D" uid="uid://bdekm7ro4wdxk" path="res://assets/map/objects/key_32x32_24f.png" id="8_xgxat"]
+[ext_resource type="PackedScene" uid="uid://dlds4u0yan17b" path="res://guard.tscn" id="9_ftm45"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gc6m6"]
 texture = ExtResource("1_mf1e4")
@@ -434,6 +435,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ftm45"]
+radius = 16.27882
+
 [node name="ground floor" type="Node2D" unique_id=1644077238]
 script = ExtResource("1_bjtl5")
 
@@ -500,9 +504,14 @@ polygon = PackedVector2Array(-96.66667, 206.66666, 30, 143.33333, 56.666656, 166
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=884600610]
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=1102534954]
+[node name="Timer" type="Label" parent="CanvasLayer" unique_id=1102534954]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="rewind_nb" type="Label" parent="CanvasLayer" unique_id=1606449631]
+offset_top = 28.0
+offset_right = 40.0
+offset_bottom = 51.0
 
 [node name="Key-Room-Button" type="StaticBody2D" parent="." unique_id=61181366]
 position = Vector2(112, -112)
@@ -530,3 +539,11 @@ frame_progress = 0.3702745
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="key/Area2D" unique_id=1016736665]
 polygon = PackedVector2Array(-28, -10, -30, 18, 16, 22, 38, 8, 26, -18, -6, -26)
+
+[node name="Guard" parent="." unique_id=498878654 instance=ExtResource("9_ftm45")]
+position = Vector2(129, 0)
+
+[node name="Area2D" type="Area2D" parent="Guard" unique_id=975717800]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guard/Area2D" unique_id=1334778479]
+shape = SubResource("CircleShape2D_ftm45")

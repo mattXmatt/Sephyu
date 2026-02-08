@@ -5,6 +5,7 @@ const SPEED = 50.0
 const JUMP_VELOCITY = -400.0
 const TP_SAVE_TIME = 1.5
 
+var remaining_rewind = 5
 var history_tick: int = 0;
 var position_history: Array = []
 
@@ -37,7 +38,9 @@ func check_nearest_history_position() -> Vector2:
 func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept"):
-		$".".position = get_nearest_history_position()
+		if (remaining_rewind > 0):
+			$".".position = get_nearest_history_position()
+			remaining_rewind -= 1
 		
 	var y_directions := Input.get_axis("up", "down")
 	var x_directions := Input.get_axis("ui_left", "ui_right")

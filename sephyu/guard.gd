@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed := 100.0
+@export var speed := 30.0
 @export var wait_time := 0.6
 @export var patrol_points_path: NodePath
 @export var arrive_distance := 6.0
@@ -31,9 +31,6 @@ func _ready():
 		set_physics_process(false)
 		return
 
-	vision_area.body_entered.connect(_on_body_entered)
-	vision_area.body_exited.connect(_on_body_exited)
-
 	anim.play("idle")
 	lamp_ray.play("default")
 
@@ -59,7 +56,30 @@ func _patrol():
 	velocity = dir.normalized() * speed
 	facing_dir = velocity.normalized()
 	_flip_sprites()
-	move_and_slide()
+	if (move_and_slide()):
+		_check_wall_collision()
+
+func _check_wall_collision():
+	var collision_count = get_slide_collision_count()
+
+	if collision_count > 0:
+		var collision = get_last_slide_collision()
+		if collision.get_normal().dot(facing_dir) < -0.5:
+			_handle_wall_bounce()
+			
+func _handle_wall_bounce():
+	waiting = true
+	velocity = Vector2.ZERO    
+	direction *= -1
+	current_point += direction
+	if current_point < 0:
+		current_point = 1
+		direction = 1
+	elif current_point >= points.size():
+		current_point = points.size() - 2
+		direction = -1 
+	await get_tree().create_timer(wait_time).timeout
+	waiting = false
 
 func _pause_and_turn():
 	waiting = true
